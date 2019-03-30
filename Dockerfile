@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.9
 
 # Uncomment if local sources
 # COPY ./MTProxy /mtproxy/sources
@@ -17,8 +17,8 @@ RUN apk add --no-cache --virtual .build-deps \
     # && apk add --virtual .rundeps libcrypto1.0 \
     # && apk del .build-deps
 
-FROM alpine:3.6
-LABEL maintainer="Alex Doe <alex@doe.sh>" \
+FROM alpine:3.9
+LABEL maintainer="Serg Podtynnyi <serg@podtynnyi.com>" \
       description="Telegram Messenger MTProto zero-configuration proxy server."
 
 RUN apk add --no-cache curl \
