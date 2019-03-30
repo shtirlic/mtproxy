@@ -3,7 +3,7 @@ version: '3'
 services:
 
   mtproxy:
-    image: alexdoesh/mtproxy
+    image: shtirlic/mtproxy
     container_name: mtproxy
     restart: always
     # command: --add --your --commands
@@ -20,4 +20,3 @@ services:
 
 networks:
   tg_stack:
-

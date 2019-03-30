@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.9 as builder
 
 # Uncomment if local sources
 # COPY ./MTProxy /mtproxy/sources
@@ -27,7 +27,7 @@ RUN apk add --no-cache curl \
 
 WORKDIR /mtproxy
 
-COPY --from=0 /mtproxy/sources/objs/bin/mtproto-proxy .
+COPY --from=builder /mtproxy/sources/objs/bin/mtproto-proxy .
 COPY docker-entrypoint.sh /
 
 VOLUME /data
