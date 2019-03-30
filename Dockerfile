@@ -6,7 +6,7 @@ FROM alpine:3.9
 COPY ./patches /mtproxy/patches
 
 RUN apk add --no-cache --virtual .build-deps \
-      git make gcc musl-dev linux-headers openssl-dev \
+    git make gcc musl-dev linux-headers openssl-dev zlib-dev \
     && git clone --single-branch --depth 1 https://github.com/TelegramMessenger/MTProxy.git /mtproxy/sources \
     && cd /mtproxy/sources \
     && patch -p0 -i /mtproxy/patches/randr_compat.patch \
@@ -23,9 +23,7 @@ LABEL maintainer="Serg Podtynnyi <serg@podtynnyi.com>" \
 
 RUN apk add --no-cache curl \
   && apk update \
-  && apk upgrade apk --no-cache \
-  && ln -s /usr/lib/libcrypto.so.41 /usr/lib/libcrypto.so.1.0.0
-  # alpine:3.7 will need symlink to libcrypto.so.42
+  && apk upgrade apk --no-cache
 
 WORKDIR /mtproxy
 
