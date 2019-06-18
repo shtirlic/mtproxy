@@ -1,4 +1,4 @@
-FROM alpine:3.9.4 as builder
+FROM alpine:3.9 as builder
 
 # Uncomment if local sources
 # COPY ./MTProxy /mtproxy/sources
@@ -11,11 +11,6 @@ RUN apk add --no-cache --virtual .build-deps \
     && cd /mtproxy/sources \
     && patch -p0 -i /mtproxy/patches/randr_compat.patch \
     && make -j$(getconf _NPROCESSORS_ONLN)
-    # Let's skip all cleaning stuff for faster build
-    # && cp /mtproxy/sources/objs/bin/mtproto-proxy /mtproxy/ \
-    # && rm -rf /mtproxy/{sources,patches} \
-    # && apk add --virtual .rundeps libcrypto1.0 \
-    # && apk del .build-deps
 
 FROM alpine:3.9
 LABEL maintainer="Serg Podtynnyi <serg@podtynnyi.com>" \
@@ -37,7 +32,7 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD [ \
   "--port", "2398", \
   "--http-ports", "443", \
-  "--slaves", "2", \
+  "--slaves", "3", \
   "--max-special-connections", "60000", \
   "--allow-skip-dh" \
 ]
