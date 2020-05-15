@@ -1,4 +1,4 @@
-FROM alpine:3.9 as builder
+FROM alpine:3.11 as builder
 
 # Uncomment if local sources
 # COPY ./MTProxy /mtproxy/sources
@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && patch -p0 -i /mtproxy/patches/randr_compat.patch \
     && make -j$(getconf _NPROCESSORS_ONLN)
 
-FROM alpine:3.9
+FROM alpine:3.11
 LABEL maintainer="Serg Podtynnyi <serg@podtynnyi.com>" \
       description="Telegram Messenger MTProto zero-configuration proxy server."
 
